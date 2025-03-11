@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الوجبات الخفيفة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* خلفية متحركة مع تأثير Blur */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('OIP.PNG') no-repeat center center/cover;
+            filter: blur(8px);
+            animation: moveBg 20s linear infinite alternate;
+            z-index: -1;
+        }
+
+        /* حركة الخلفية */
+        @keyframes moveBg {
+            0% { transform: scale(1) translateY(0px); }
+            100% { transform: scale(1.1) translateY(-20px); }
+        }
+
+        /* اللوجو */
+        .logo-container img {
+            width: 120px;
+            margin: 20px auto;
+        }
+
+        /* أيقونة السلة */
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .cart-icon:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* تنسيق المنتجات */
+        .container {
+            padding: 20px;
+        }
+
+        .products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* صفين في كل عمود */
+    gap: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* جعل التصميم متجاوبًا ليصبح منتج واحد في الصف عند تصغير الشاشة */
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+
+        .product {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .product img {
+            width: 100%;
+            max-width: 150px;
+            border-radius: 8px;
+        }
+
+        /* زر الشراء */
+        button {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff2200;
+        }
+
+        /* سلة المشتريات */
+        .cart-container {
+            position: fixed;
+            top: 60px;
+            right: -300px;
+            width: 250px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            transition: right 0.4s;
+            z-index: 10;
+        }
+
+        .cart-container.active {
+            right: 20px;
+        }
+
+        .cart-container h3 {
+            margin: 0 0 10px;
+        }
+
+        .cart-container ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-container ul li {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+       /* زر إزالة المنتج (❌) */
+.cart-container button {
+    background: #ff4d4d; /* لون أحمر فاتح */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.cart-container button:hover {
+    background: #cc0000; /* لون أحمر داكن عند تمرير الماوس */
+    transform: scale(1.1);
+}
+
+        /* تحسين التناسق العام */
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 14px;
+        }
+        .logo-container {
+    text-align: center;
+    margin-top: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.logo-container img {
+    width: 150px; /* يمكنك تعديل الحجم حسب الحاجة */
+    transition: transform 0.3s;
+}
+
+.logo-container img:hover {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* حركة اللوجو لأعلى وأسفل */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* اهتزاز اللوجو عند تمرير الماوس */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-container"></div>
+
+    <div class="logo-container">
+        <img src="logo.png" alt="لوجو المتجر">
+    </div>
+
+    <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+
+    <div class="container">
+        <div class="products">
+            <div class="product">
+                <img src="resized_ahr0chm6ly9hc2hpywutynvja2v0lnmzlmv1lxdlc3qtmy5hbwf6b25hd3muy29tl3byb2r1y3rzlzc0mtutzxgtmc5qcgc=.jpg" alt="شيبسي">
+                <p><strong>شيبسي</strong></p>
+                <p>السعر: 10 جنيه</p>
+                <button onclick="addToCart('شيبسي', 10)">إضافة</button>
+            </div>
+            <div class="product">
+                <img src="OIP.jpg" alt="V7">
+                <p><strong>V7</strong></p>
+                <p>السعر: 15 جنيه</p>
+                <button onclick="addToCart('V7', 15)">إضافة</button>
+            </div>
+        <div class="product">
+            <img src="download.jpg" alt="دبل دير ">
+            <p><strong>دبل دير</strong></p>
+            <p>السعر: 15 جنيه</p>
+            <button onclick="addToCart('دبل دير', 15)">إضافة</button>
+        </div>
+        <div class="product">
+            <img src="1.jpg" alt="سبيروسباتس">
+            <p><strong>سبيروسباتس</strong></p>
+            <p>السعر: 15 جنيه</p>
+            <button onclick="addToCart('اسبيرو اسباتس', 15)">إضافة</button>
+        </div>
+    </div>
+        </div>
+
+    <div class="cart-container" id="cart">
+        <p id="error-message" style="color: red; display: none; font-weight: bold; background: rgba(255, 0, 0, 0.2); padding: 10px; border-radius: 5px;"></p>
+        <h3>سلة المشتريات</h3>
+        <ul id="cart-items"></ul>
+        <p>الإجمالي: <span id="total-price">0</span> جنيه</p>
+        <button onclick="checkout()">إتمام الشراء</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cart').classList.toggle('active');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartList = document.getElementById('cart-items');
+            let totalPrice = document.getElementById('total-price');
+            let cartCount = document.getElementById('cart-count');
+
+            cartList.innerHTML = "";
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartList.innerHTML += `<li>${item.name} - ${item.price} جنيه 
+                    <button onclick="removeFromCart(${index})">❌</button></li>`;
+            });
+
+            totalPrice.innerText = total;
+            cartCount.innerText = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function checkout() {
+    let total = document.getElementById('total-price').innerText;
+    let errorMessage = document.getElementById('error-message');
+
+    if (cart.length === 0) {
+        errorMessage.innerText = "سلة المشتريات فارغة! يرجى إضافة منتجات أولاً.";
+        errorMessage.style.display = "block"; // إظهار رسالة الخطأ
+        return;
+    }
+
+    errorMessage.style.display = "none"; // إخفاء أي رسالة خطأ سابقة
+    window.location.href = `checkout.html?total=${total}`;
+}
+
+    </script>
+
+</body>
+</html>
